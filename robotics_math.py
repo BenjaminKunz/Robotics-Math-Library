@@ -1,4 +1,5 @@
 import numpy as np
+import sympy as sp 
 
 
 def yaw_pitch_roll(yaw_grad,pitch_grad,roll_grad, p=None):#ZYX sequenz
@@ -254,3 +255,66 @@ def TTY(l): #Translation entlang y achse
     return T
 
 
+def sTz(thetha):  # Transformation um winkel theta  z achse simpy
+    s=sp.sin(thetha)
+    c=sp.cos(thetha)
+
+    T=sp.Matrix([
+        [c,-s,0,0],
+        [s,c,0,0],
+        [0,0,1,0],
+        [0,0,0,1]
+    ])
+    return T
+
+def sTx(thetha): #Transfomtation um winkel theta X achse 
+    s=sp.sin(thetha)
+    c=sp.cos(thetha)
+
+    T=sp.Matrix([
+        [1,0,0,0],
+        [0,c,-s,0],
+        [0,s,c,0],
+        [0,0,0,1]
+    ])
+    return T 
+
+def sTy(thetha):  # Transformation um den winkel theta y achse 
+    s=sp.sin(thetha)
+    c=sp.cos(thetha)
+
+    T=sp.Matrix([
+        [ c,0,s,0],
+        [ 0,1,0,0],
+        [-s,0,c,0],
+        [ 0,0,0,1]
+    ])
+    return T 
+
+def sTTX(l): #Translation entlan x achse 
+    T=sp.Matrix([
+        [1,0,0,l],
+        [0,1,0,0],
+        [0,0,1,0],
+        [0,0,0,1]
+    ])
+    return T 
+
+
+def sTTZ(l): #Translation entlang z achse 
+    T=sp.Matrix([
+        [1,0,0,0],
+        [0,1,0,0],
+        [0,0,1,l],
+        [0,0,0,1]
+    ])
+    return T 
+
+def sTTY(l): #Translation entlang y achse 
+    T=sp.Matrix([
+        [1,0,0,0],
+        [0,1,0,l],
+        [0,0,1,0],
+        [0,0,0,1]
+    ])
+    return T
