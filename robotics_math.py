@@ -10,8 +10,6 @@ def yaw_pitch_roll(yaw_grad,pitch_grad,roll_grad, p=None):#ZYX sequenz
     pitch=np.radians(pitch_grad)
     roll=np.radians(roll_grad)
 
-    #Aufgabe 3.1
-
     # Z-achse
     sy=np.sin(yaw)
     cy=np.cos(yaw)
@@ -21,7 +19,6 @@ def yaw_pitch_roll(yaw_grad,pitch_grad,roll_grad, p=None):#ZYX sequenz
         [sy, cy,0],
         [0,  0, 1]
     ])
-
 
     # Y-achse
     sp=np.sin(pitch)
@@ -44,7 +41,7 @@ def yaw_pitch_roll(yaw_grad,pitch_grad,roll_grad, p=None):#ZYX sequenz
     ])
 
 
-    # Aufgabe 3.2 multiplikation rz*ry*rx
+    #Zusatzt abhängig von benötigt nur Rotations oder die homogentransfomation matrix wen kein pose übergeben wird gibt die funktion nur 
 
 
     r=rz@ry@rx
