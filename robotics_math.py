@@ -183,4 +183,74 @@ def invers_transformationsmatrix(T):
     
     
     return(iT)
-    
+
+
+
+
+def Tz(thetha):  # Transformation um winkel theta  z achse 
+    s=np.sin(thetha)
+    c=np.cos(thetha)
+
+    T=np.array([
+        [c,-s,0,0],
+        [s,c,0,0],
+        [0,0,1,0],
+        [0,0,0,1]
+    ])
+    return T
+
+
+def Tx(thetha): #Transfomtation um winkel theta X achse 
+    s=np.sin(thetha)
+    c=np.cos(thetha)
+
+    T=np.array([
+        [1,0,0,0],
+        [0,c,-s,0],
+        [0,s,c,0],
+        [0,0,0,1]
+    ])
+    return T 
+
+def Ty(thetha):  # Transformation um den winkel theta y achse 
+    s=np.sin(thetha)
+    c=np.cos(thetha)
+
+    T=np.array([
+        [ c,0,s,0],
+        [ 0,1,0,0],
+        [-s,0,c,0],
+        [ 0,0,0,1]
+    ])
+    return T 
+
+
+def TTX(l): #Translation entlan x achse 
+    T=np.array([
+        [1,0,0,l],
+        [0,1,0,0],
+        [0,0,1,0],
+        [0,0,0,1]
+    ])
+    return T 
+
+
+def TTZ(l): #Translation entlang z achse 
+    T=np.array([
+        [1,0,0,0],
+        [0,1,0,0],
+        [0,0,1,l],
+        [0,0,0,1]
+    ])
+    return T 
+
+def TTY(l): #Translation entlang y achse 
+    T=np.array([
+        [1,0,0,0],
+        [0,1,0,l],
+        [0,0,1,0],
+        [0,0,0,1]
+    ])
+    return T
+
+
