@@ -84,6 +84,19 @@ def DH_Matrix (alpha,a,theta,d):
     ])
     return T
 
+def sDH_Matrix(alpha,a,theta,d):
+    c_theta=sp.cos(theta)
+    s_theta=sp.sin(theta)
+    c_alpha=sp.cos(alpha)
+    s_alpha=sp.sin(alpha)
+
+    T=sp.Matrix([
+        [c_theta,-s_theta,0,a],
+        [c_alpha*s_theta,c_alpha*c_theta,-s_alpha,-d*s_alpha],
+        [s_alpha*s_theta,s_alpha*c_theta,c_alpha,d*c_alpha],
+        [0,0,0,1]
+    ])
+    return T
 
 def forward_kinematics(DH_params):
     """
@@ -318,3 +331,30 @@ def sTTY(l): #Translation entlang y achse
         [0,0,0,1]
     ])
     return T
+
+
+def Lagrange(K_list, P_list, q_list, t):
+    """
+    K_list: [K1, K2, ...] kinetische Energien
+    P_list: [P1, P2, ...] potenzielle Energien (0 wenn nicht vorhanden)
+    q_list: [q1, q2, ...] generalisierte Koordinaten
+    """
+    K = sum(K_list)
+    P = sum(P_list)
+    L = K - P
+
+    # Ableitungen
+    qd_list  = [q.diff(t) for q in q_list]
+    qdd_list = [qd.diff(t) for qd in qd_list]
+
+    # Euler-Lagrange für jede Koordinate
+    Q_list = []
+    for q, qd in zip(q_list, qd_list):
+        Q = sp.simplify(sp.diff(L, qd).diff(t) - sp.diff(L, q))
+        Q_list.append(Q)
+        
+
+    # Massenmatrix
+    M = sp.Matrix([[sp.diff(Qi, qdd) for qdd in qdd_list] for Qi in Q_list])
+
+    return Q_list, M
