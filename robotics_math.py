@@ -358,3 +358,29 @@ def Lagrange(K_list, P_list, q_list, t):
     M = sp.Matrix([[sp.diff(Qi, qdd) for qdd in qdd_list] for Qi in Q_list])
 
     return Q_list, M
+
+
+def trapez(q0, q1, qd_max, qdd_acc, qdd_dec, t):
+  # Test max speed
+  qd = np.sqrt(
+      2 * ((qdd_acc * qdd_dec) / (qdd_dec - qdd_acc) * (np.linalg.norm(q0 - q1)))
+  )
+
+  if qd >= qd_max:
+    t1 = qd_max / qdd_acc + t
+    t2 = (
+        (np.linalg.norm(q1 - q0) / qd_max)
+        - (qd_max / (2 * qdd_acc))
+        + (qd_max / (2 * qdd_dec))
+        + t1
+    )
+    t3 = -(qd_max / qdd_dec) + t2
+    print("max speed ok")
+    return t1, t2, t3
+
+  else:
+    t1=(qd/qdd_acc)+t
+    t2=-(qd/qdd_dec)+t1
+    t3=t1+t2
+    print(f"max speed qd ={qd} not qd_max {qd_max}!!")
+    return t1, t2, t3
